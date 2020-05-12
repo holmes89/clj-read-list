@@ -39,10 +39,12 @@
   (response (repo/get-book (.toString id))))
 
 (defn get-all-books-handler []
-  (response (list example)))
+  (->> (repo/get-list "all")
+       (map repo/get-book)
+       (response)))
 
 (defn add-book [req]
-  (->    
+  (->
     (assoc req :id (uuid))
     (repo/add-book!)
     (response)))

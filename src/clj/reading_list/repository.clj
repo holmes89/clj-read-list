@@ -4,13 +4,18 @@
 (def server-conn {:pool {} :spec {:uri "redis://localhost/"}})
 (defmacro wcar* [& body] `(car/wcar server-conn ~@body))
 
+(defn add-to-list [list id]
+  (wcar* (car/lpush list id)))
+
+(defn get-list [list]
+  (wcar* (car/lrange list 0 -1)))
+
 (defn add-book! [book]
-  (let [results (wcar* (car/set
-                         (get book :id)
-                         book))]
-    (if (= results "OK")
-      book
-      (throw (Exception. "unable to write to repository" results)))
-    ))
+  (let [id (get book :id)]
+    (wcar*
+      (car/set id book))
+    (add-to-list "all" id)
+  ) book)
+
 (defn get-book [id]
   (wcar* (car/get id)))
