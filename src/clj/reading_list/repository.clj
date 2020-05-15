@@ -14,8 +14,11 @@
   (let [id (get book :id)]
     (wcar*
       (car/set id book))
-    (add-to-list "all" id)
-  ) book)
+    (add-to-list "all" id)) book)
+
+(defn update-book [id book]
+  (wcar*
+    (car/set id book)) book)
 
 (defn get-book [id]
   (wcar* (car/get id)))

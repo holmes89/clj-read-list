@@ -15,7 +15,10 @@
                  [ring/ring-jetty-adapter "1.8.0"]
                  [com.taoensso/carmine "2.19.1"]
                  [environ "1.1.0"]
-                 [buddy "2.0.0"]]
+                 [buddy "2.0.0"]
+                 [cljs-ajax "0.8.0"]
+                 [day8.re-frame/http-fx "0.1.6"]
+                 [cheshire "5.10.0"]]
 
   :plugins [[lein-shadow "0.1.7"]
             
