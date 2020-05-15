@@ -25,14 +25,6 @@
         (assoc :loading? false)
         (assoc :book-list (js->clj response)))))
 
-(re-frame/reg-event-db                   
-    ::process-update             
-  (fn
-    [db [_ response]]
-    (let [r (js->clj response)]
-      (-> db
-          (assoc :loading? false)
-          (assoc-in [:book-map (:id r)] r)))))
 
 (re-frame/reg-event-db                   
     ::bad-response             
@@ -64,7 +56,7 @@
                   :params body
                   :format          (ajax/json-request-format {:keywords? true})
                   :response-format (ajax/json-response-format {:keywords? true}) 
-                  :on-success      [::process-update]
+                  :on-success      [::get-books]
                   :on-failure      [::bad-response]
                   }
      :db  (assoc db :loading? true)}))

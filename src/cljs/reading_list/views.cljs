@@ -40,22 +40,26 @@
   (as-> (update-in book [:read] not) b
     (re-frame/dispatch [::events/update-book b])))
 
+(defn book-card-image
+  [{:keys [thumbnail]}]
+  [:div.card-image
+   [:figure.image
+    [:img {:src thumbnail :style {:width 125 :margin-left "20%"}}]]])
+
+(defn book-card-body
+  [{:keys [title author]}]
+  [:div.card-content
+   [:h2 title]
+   [:h4 author]])
+
 (defn book-card
-  [{id :id
-    title :title
-    author :author
-    thumbnail :thumbnail
-    :as book}]
+  [book]
   [:div.card
-   [:div.card-image
-    [:figure.image
-     [:img {:src thumbnail :style {:width 125 :margin-left "20%"}}]]]
-   [:div.card-content
-    [:h2 title]
-    [:h4 author]]
+   [book-card-image book]
+   [book-card-body book]
    [:div.card-footer
-    [:a.card-footer-item {:on-click #(read-book book)} (read-icon book) "Read"]
-    [:a.card-footer-item {:on-click #(like-book book)} (like-icon book) "Like"]]])
+    [:a.card-footer-item {:on-click #(read-book book)} [read-icon book] "Read"]
+    [:a.card-footer-item {:on-click #(like-book book)} [like-icon book] "Like"]]])
 
 (defn book-grid []
   (let [books (re-frame/subscribe [::subs/books])]
