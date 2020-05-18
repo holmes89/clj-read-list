@@ -22,4 +22,5 @@
   {:name "re-frame"
    :loading? false
    :book-list []
+   :filters []
    })

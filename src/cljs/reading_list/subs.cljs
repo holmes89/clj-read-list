@@ -12,6 +12,18 @@
   (fn [db _]
     (:active-panel db)))
 
+(defn read?
+  [book]
+  (:read book))
+
+(defn unread?
+  [book]
+  (not (:read book)))
+
+(defn liked?
+  [book]
+  (:liked book))
+
 (re-frame/reg-sub
     ::books
   (fn [db _]

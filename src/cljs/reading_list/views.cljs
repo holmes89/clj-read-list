@@ -39,11 +39,20 @@
   [book]
   (re-frame/dispatch [::events/update-book (update-in book [:read] not)]))
 
+
+(defn filter-list
+  []
+  [:div.tabs.is-toggle.is-centered
+   [:ul
+    [:li [:a [:span "Read"]]]
+    [:li [:a [:span "Liked"]]]
+    [:li [:a [:span "Unread"]]]]])
+
 (defn book-card-image
   [{:keys [thumbnail]}]
   [:div.card-image
    [:figure.image
-    [:img {:src thumbnail :style {:width 125 :margin-left "20%"}}]]])
+    [:img {:src thumbnail :style {:width 125 :margin-left "30%"}}]]])
 
 (defn book-card-body
   [{:keys [title author]}]
@@ -79,6 +88,10 @@
       [:h1.title.has-text-centered (str "Reading List")]
       [:div.container.has-text-centered
        [add-book-input]]]
+     [:section.section
+      [:div.container
+       [filter-list]]
+      ]
      [:section.section
       [:div.container
        [book-grid]]]]))
