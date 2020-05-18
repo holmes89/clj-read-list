@@ -17,19 +17,19 @@
    [:div.control
     [:button.button.is-success {:on-click submit-isbn}
      [:span.icon
-      [:i.fas.fa-plus]]]]])
+      [:i.fa.fa-plus]]]]])
 
 (defn read-icon
   [{:keys [read]}]
   (if read
-    [:i.fas.fa-bookmark]
-    [:i.far.fa-bookmark]))
+    [:i.fa.fa-bookmark]
+    [:i.fa.fa-bookmark-o]))
 
 (defn like-icon
   [{:keys [liked]}]
   (if liked
-    [:i.fas.fa-heart]
-    [:i.far.fa-heart]))
+    [:i.fa.fa-heart]
+    [:i.fa.fa-heart-o]))
 
 (defn like-book
   [book]
@@ -37,8 +37,7 @@
 
 (defn read-book
   [book]
-  (as-> (update-in book [:read] not) b
-    (re-frame/dispatch [::events/update-book b])))
+  (re-frame/dispatch [::events/update-book (update-in book [:read] not)]))
 
 (defn book-card-image
   [{:keys [thumbnail]}]
@@ -59,7 +58,7 @@
    [book-card-body book]
    [:div.card-footer
     [:a.card-footer-item {:on-click #(read-book book)} [read-icon book] "Read"]
-    [:a.card-footer-item {:on-click #(like-book book)} [like-icon book] "Like"]]])
+    [:a.card-footer-item {:on-click #(like-book book)} [like-icon book] "Liked"]]])
 
 (defn book-grid []
   (let [books (re-frame/subscribe [::subs/books])]
