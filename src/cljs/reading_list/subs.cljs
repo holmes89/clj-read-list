@@ -12,19 +12,24 @@
   (fn [db _]
     (:active-panel db)))
 
-(defn read?
-  [book]
-  (:read book))
-
-(defn unread?
-  [book]
-  (not (:read book)))
-
-(defn liked?
-  [book]
-  (:liked book))
 
 (re-frame/reg-sub
     ::books
   (fn [db _]
-    (:book-list db)))
+    (->> (:book-list db)
+         (sequence (apply comp (:filters db))))))
+
+(re-frame/reg-sub
+    ::read-filter-enabled
+  (fn [db _]
+    (:read-filter-enabled? db)))
+
+(re-frame/reg-sub
+    ::liked-filter-enabled
+  (fn [db _]
+    (:liked-filter-enabled? db)))
+
+(re-frame/reg-sub
+    ::unread-filter-enabled
+  (fn [db _]
+    (:unread-filter-enabled? db)))

@@ -44,9 +44,12 @@
   []
   [:div.tabs.is-toggle.is-centered
    [:ul
-    [:li [:a [:span "Read"]]]
-    [:li [:a [:span "Liked"]]]
-    [:li [:a [:span "Unread"]]]]])
+    [:li {:class (if @(re-frame/subscribe [::subs/read-filter-enabled]) "is-active" "not-active")}
+     [:a [:span {:on-click #(re-frame/dispatch [::events/toggle-read-filter])} "Read"]]]
+    [:li {:class (if @(re-frame/subscribe [::subs/liked-filter-enabled]) "is-active" "not-active")}
+     [:a [:span {:on-click #(re-frame/dispatch [::events/toggle-liked-filter])} "Liked"]]]
+    [:li {:class (if @(re-frame/subscribe [::subs/unread-filter-enabled]) "is-active" "not-active")}
+     [:a [:span {:on-click #(re-frame/dispatch [::events/toggle-unread-filter])} "Unread"]]]]])
 
 (defn book-card-image
   [{:keys [thumbnail]}]
@@ -90,8 +93,7 @@
        [add-book-input]]]
      [:section.section
       [:div.container
-       [filter-list]]
-      ]
+       [filter-list]]]
      [:section.section
       [:div.container
        [book-grid]]]]))

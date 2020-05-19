@@ -22,5 +22,8 @@
   {:name "re-frame"
    :loading? false
    :book-list []
-   :filters []
+   :filters #{}
+   :read-filter-enabled? false
+   :unread-filter-enabled? false
+   :liked-filter-enabled? false
    })

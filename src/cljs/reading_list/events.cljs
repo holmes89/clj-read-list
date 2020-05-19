@@ -32,6 +32,53 @@
     [message]
     (js/console.log  message)))
 
+(defn read?
+  [book]
+  (:read book))
+
+(def read-filter
+  (filter read?))
+
+(defn unread?
+  [book]
+  (not (:read book)))
+
+(def unread-filter
+  (filter unread?))
+
+(defn liked?
+  [book]
+  (:liked book))
+
+(def liked-filter
+  (filter liked?))
+
+(re-frame/reg-event-db
+    ::toggle-read-filter
+  (fn
+    [db]
+    (as-> (update-in db [:read-filter-enabled?] not) d
+      (if (contains? (:filters d) read-filter) 
+        (update-in d [:filters] disj read-filter)
+        (update-in d [:filters] conj read-filter)))))
+
+(re-frame/reg-event-db
+    ::toggle-unread-filter
+  (fn
+    [db]
+    (as-> (update-in db [:unread-filter-enabled?] not) d
+      (if (contains? (:filters d) unread-filter)
+        (update-in d [:filters] disj unread-filter)
+        (update-in d [:filters] conj unread-filter)))))
+
+(re-frame/reg-event-db
+    ::toggle-liked-filter
+  (fn
+    [db]
+    (as-> (update-in db [:liked-filter-enabled?] not) d
+      (if (contains? (:filters d) liked-filter)
+        (update-in d [:filters] disj liked-filter)
+        (update-in d [:filters] conj liked-filter)))))
 
 (re-frame/reg-event-fx
     ::add-book
