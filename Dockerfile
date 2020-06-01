@@ -14,6 +14,7 @@ EXPOSE 3000
 RUN lein uberjar
 
 FROM openjdk:11.0.6-jre-slim AS prod
+RUN apt-get install -y ca-certificates
 ENV PORT 3000
 EXPOSE 3000
 COPY --from=build /reading-list/target/reading-list.jar /reading-list.jar
