@@ -3,6 +3,7 @@
   (:require [ring.adapter.jetty :refer [run-jetty]]
             [compojure.api.sweet :refer :all]
             [compojure.route :as route]
+            [environ.core :refer [env]]
             [reading-list.book :refer [book-routes]])
   (:gen-class))
 
@@ -19,4 +20,4 @@
 
 (defn -main
   [& args]
-  (run-jetty app {:port 3000}))
+  (run-jetty app {:port (env :port 3000)}))
