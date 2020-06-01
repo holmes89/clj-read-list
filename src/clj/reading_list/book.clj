@@ -41,7 +41,7 @@
        (response)))
 
 (defn book-from-google-api [isbn]
-  (-> (slurp (str "https://www.googleapis.com/books/v1/volumes?q=isbn%3D" isbn))
+  (-> (slurp (str "https://www.googleapis.com/books/v1/volumes?key=AIzaSyCikHq2M9PwSFk3nMjlJR-na8Ct8zsckH4&q=isbn%3D" isbn))
       ch/parse-string
       (get "items")
       first
