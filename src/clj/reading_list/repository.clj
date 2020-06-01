@@ -1,7 +1,8 @@
 (ns reading-list.repository
-  (:require [taoensso.carmine :as car :refer (wcar)]))
+  (:require [taoensso.carmine :as car :refer (wcar)]
+            [environ.core :refer [env]]))
 
-(def server-conn {:pool {} :spec {:uri "redis://localhost/"}})
+(def server-conn {:pool {} :spec {:uri (env :redis-url "redis://localhost/")}})
 (defmacro wcar* [& body] `(car/wcar server-conn ~@body))
 
 (defn add-to-list [list id]

@@ -77,8 +77,8 @@
    
    :uberjar {:source-paths ["env/prod/clj"]
              :omit-source  true
-             :main         reading-list.server
-             :aot          [reading-list.server]
+             :main         reading-list.core
+             :aot          [reading-list.core]
              :uberjar-name "reading-list.jar"
              :prep-tasks   ["compile" ["prod"]]}}
 
