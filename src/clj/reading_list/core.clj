@@ -7,7 +7,7 @@
             [reading-list.book :refer [book-routes]])
   (:gen-class))
 
-
+(def port (Integer/parseInt (env :port "3000")))
 (defroutes root-routes
   (GET "/" [] (resource-response "index.html" {:root "public"}))
   (route/resources "/")
@@ -20,4 +20,4 @@
 
 (defn -main
   [& args]
-  (run-jetty app {:port (env :port 3000)}))
+  (run-jetty app {:port port}))
