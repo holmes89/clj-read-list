@@ -49,7 +49,8 @@
        (response)))
 
 (defn book-from-google-api [isbn]
-  (-> (slurp (str "https://www.googleapis.com/books/v1/volumes?" book-key "q=isbn%3D" isbn))
+  (-> (clojure.string/trim isbn)
+      (slurp (str "https://www.googleapis.com/books/v1/volumes?" book-key "q=isbn%3D" isbn))
       ch/parse-string
       (get "items")
       first
