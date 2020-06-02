@@ -4,7 +4,15 @@
             [compojure.api.sweet :refer :all]
             [reading-list.repository :as repo]
             [clojure.tools.logging :as log]
+            [environ.core :refer [env]]
             [cheshire.core :as ch]))
+
+
+(def book-key
+  (let [k (env :google-key "")]
+    (if (not (clojure.string/blank? k))
+      (str "key=" k "&")
+      "")))
 
 (defn uuid [] (.toString (java.util.UUID/randomUUID)))
 
@@ -41,7 +49,7 @@
        (response)))
 
 (defn book-from-google-api [isbn]
-  (-> (slurp (str "https://www.googleapis.com/books/v1/volumes?key=AIzaSyCikHq2M9PwSFk3nMjlJR-na8Ct8zsckH4&q=isbn%3D" isbn))
+  (-> (slurp (str "https://www.googleapis.com/books/v1/volumes?" book-key "q=isbn%3D" isbn))
       ch/parse-string
       (get "items")
       first

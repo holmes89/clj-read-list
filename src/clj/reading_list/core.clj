@@ -8,6 +8,7 @@
   (:gen-class))
 
 (def port (Integer/parseInt (env :port "3000")))
+
 (defroutes root-routes
   (GET "/" [] (resource-response "index.html" {:root "public"}))
   (route/resources "/")
