@@ -78,7 +78,7 @@
       [:div.columns.is-mobile.is-multiline
        (for [book @books]
          ^{:key (:id book)}
-         [:div.column.is-3
+         [:div.column.is-3-desktop.is-full-mobile
           [book-card book]])])))
 
 
